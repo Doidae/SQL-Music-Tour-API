@@ -1,5 +1,6 @@
 // DEPENDENCIES
 const express = require('express')
+const { Sequelize } = require('sequelize')
 const app = express()
 
 // CONFIGURATION / MIDDLEWARE
@@ -13,6 +14,9 @@ app.get('/', (req, res) => {
         message: 'Welcome to the Tour API'
     })
 })
+
+//DATABASE
+const sequelize = new Sequelize('postgres://user:pass@example.com:5432/dbname')
 
 // LISTEN
 app.listen(process.env.PORT, () => {
