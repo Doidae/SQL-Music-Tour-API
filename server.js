@@ -16,9 +16,19 @@ app.get('/', (req, res) => {
 })
 
 //DATABASE
-const sequelize = new Sequelize('postgres://user:pass@example.com:5432/dbname')
+const sequelize = new Sequelize(process.env.DB_CONNECTION)
+const testSequelize = async () => {
+    try {
+        await sequelize.authenticate();
+        console.log('Database connection has been established successfully.');
+    } catch (error) {
+        console.error('Unable to connect to the database:', error);
+    }
+}
+
 
 // LISTEN
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT,  async () => {
+    await testSequelize()
     console.log(`🎸 Rockin' on port: ${process.env.PORT}`)
 })
