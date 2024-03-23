@@ -15,7 +15,6 @@ module.exports = (sequelize, DataTypes) => {
   }
   Band.init({
     name: DataTypes.STRING,
-    totalMembers: DataTypes.INTEGER,
     genre: DataTypes.STRING
   }, {
     sequelize,
