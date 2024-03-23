@@ -1,9 +1,15 @@
 const bands = require('express').Router()
 const { Band } = require('../models')
+const { Op } = require('sequelize')
 
 bands.get('/', async(req, res) => {
     try{
-        const allBands = await Band.findAll()
+        const allBands = await Band.findAll({
+            order: [[ 'available_start_time','ASC']],
+            where: {
+                name: { [Op.like]: `%${req.query.name ? req.query.name: ''}%`}
+            }
+        })
         res.send(allBands)
     } catch (e) {
         res.send(e.message)
